@@ -19,6 +19,9 @@ class _LoginPageState extends State<LoginPage>
 
   double width = 0.0;
   double height = 0.0;
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
+  TextEditingController usercont = TextEditingController();
+  TextEditingController passwordcont = TextEditingController();
 
   @override
   void didChangeDependencies() {
@@ -32,7 +35,7 @@ class _LoginPageState extends State<LoginPage>
     super.initState();
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    myanimation = Tween<double>(begin: 380, end: 400).animate(controller);
+    myanimation = Tween<double>(begin: 370, end: 390).animate(controller);
     controller.forward().whenComplete(() {
       controller.reverse();
     });
@@ -45,181 +48,212 @@ class _LoginPageState extends State<LoginPage>
         builder: (context, widget) {
           return Scaffold(
               //backgroundColor: ColorsConsts.black,
-              body: Column(children: [
-            Image.asset(
-              'assets/login1.png',
-              height: myanimation.value,
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: height * .020,
-                right: height * .01,
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.person_outline_rounded,
-                    color: ColorsConsts.black,
-                    size: 33,
+              body: SingleChildScrollView(
+            child: Form(
+              key: _form,
+              child: Column(children: [
+                Image.asset(
+                  'assets/login1.png',
+                  height: myanimation.value,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: height * .020,
+                    right: height * .01,
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 1.2,
-                    padding: EdgeInsets.only(
-                        right: height * .03, left: height * .02),
-                    child: TextFormField(
+                  child: Row(children: [
+                    Icon(
+                      Icons.person_outline_rounded,
+                      color: ColorsConsts.black,
+                      size: 33,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      padding: EdgeInsets.only(
+                          right: height * .03, left: height * .02),
+                      child: TextFormField(
+                          keyboardType: TextInputType.name,
+                        controller: usercont,
                         cursorColor: ColorsConsts.black,
                         decoration: InputDecoration(
                             labelText: 'Enter User Id',
                             labelStyle: TextStyle(
-                                color: ColorsConsts.grey, fontSize: 15))),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: height * .021, right: height * .02, top: height * .01),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.phone_android_outlined,
-                    color: ColorsConsts.black,
-                    size: 28,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 1.20,
-                    padding: EdgeInsets.only(
-                        right: height * .03, left: height * .02),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: TextStyle(
-                              color: ColorsConsts.grey, fontSize: 15)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: height * .027,
-                left: height * .016,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: height * .04,
-                    width: height * .04,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: ColorsConsts.white,
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.asset(
-                        'assets/search.png',
-                        height: 30,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: height * .099),
-                    child: Container(
-                      height: height * .045,
-                      width: height * .045,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: ColorsConsts.white,
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.asset(
-                          'assets/facebook.png',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: height * .1, right: height * .02),
-                      child: Container(
-                        height: height * .06, width: height * .2,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(60),
-                            border: Border.all(color: ColorsConsts.yellow),
-                            color: ColorsConsts.yellow),
-                        //alignment: Alignment.center,
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            primary: ColorsConsts.yellow,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Screen()),
-                            );
-                          },
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                                color: ColorsConsts.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: height * .090,
-                          bottom: height * .005,
-                          top: height * .02),
-                      child: Text('Don\'t have an account? '),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: height * .03),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => StudentSignUp()),
-                          );
+                                color: ColorsConsts.grey, fontSize: 15)),
+                        onFieldSubmitted: (value) {},
+                        validator: (value) {
+                          if (value!.isEmpty||value==null) {
+                            return 'Please enter your UserId';
+                          }
+                          return null;
                         },
-                        child: Row(
-                          children: [
-                            Text('Please '),
-                            Text(
-                              'SIGNUP',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                          ],
+                      ),
+                    ),
+                  ]),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: height * .021,
+                      right: height * .02,
+                      top: height * .01),
+                  child: Row(children: [
+                    Icon(
+                      Icons.phone_android_outlined,
+                      color: ColorsConsts.black,
+                      size: 28,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 1.20,
+                      padding: EdgeInsets.only(
+                          right: height * .03, left: height * .02),
+                      child: TextFormField(
+                        controller: passwordcont,
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(
+                                color: ColorsConsts.grey, fontSize: 15)),
+                        onFieldSubmitted: (value) {},
+                        obscureText: true,
+                        validator: (value) {
+                          if (value==null||value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ]),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: height * .027,
+                    left: height * .016,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: height * .04,
+                        width: height * .04,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: ColorsConsts.white,
                         ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.asset(
+                            'assets/search.png',
+                            height: 30,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: height * .099),
+                        child: Container(
+                          height: height * .045,
+                          width: height * .045,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: ColorsConsts.white,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.asset(
+                              'assets/facebook.png',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: height * .1, right: height * .02),
+                          child: Container(
+                            height: height * .06, width: height * .2,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(60),
+                                border: Border.all(color: ColorsConsts.yellow),
+                                color: ColorsConsts.yellow),
+                            //alignment: Alignment.center,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                primary: ColorsConsts.yellow,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  if (_form.currentState!.validate()) {
+                                    print("successful");
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Screen()),
+                                    );
+                                  } else {
+                                    print("UnSuccessfull");
+                                  }
+                                });
+                              },
+                              child: Text(
+                                'Login',
+                                style: TextStyle(
+                                    color: ColorsConsts.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: height * .090,
+                              bottom: height * .005,
+                              top: height * .02),
+                          child: Text('Don\'t have an account? '),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: height * .03),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => StudentSignUp()),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Text('Please '),
+                                Text(
+                                  'SIGNUP',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      // height: 160,
+                      height: height * .20,
+                      child: Padding(
+                        padding: const EdgeInsets.only(),
+                        child: Image.asset('assets/login2.png'),
                       ),
                     )
                   ],
                 ),
-                SizedBox(
-                  // height: 160,
-                  height: height * .20,
-                  child: Padding(
-                    padding: const EdgeInsets.only(),
-                    child: Image.asset('assets/login2.png'),
-                  ),
-                )
-              ],
+              ]),
             ),
-          ]));
+          ));
         });
   }
 }

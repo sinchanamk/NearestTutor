@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:student/const/color.dart';
 import 'package:student/profilestudent.dart';
+import 'package:student/teacherprofile_1.dart';
 
 import 'login.dart';
 
@@ -78,7 +79,13 @@ class _Profile1State extends State<Profile1> {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Profile2()),
+                    );
+                  
+                    },
                     icon: Image.asset(
                       'assets/1.png',
                     ),
@@ -104,7 +111,13 @@ class _Profile1State extends State<Profile1> {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TeacherProfile()),
+                    );
+                  
+                    },
                     icon: Image.asset(
                       'assets/2.png',
                     ),

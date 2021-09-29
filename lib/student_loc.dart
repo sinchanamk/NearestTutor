@@ -41,12 +41,9 @@ class _StudentLocationState extends State<StudentLocation> {
                   padding: const EdgeInsets.only(left: 108, top: 10),
                   child: Container(
                     alignment: Alignment.center,
-                    child: Hero(
-                      tag: 'img-tag',
-                      child: CircleAvatar(
-                        radius: 70,
-                        backgroundImage: AssetImage('assets/p.jpg'),
-                      ),
+                    child: CircleAvatar(
+                      radius: 70,
+                      backgroundImage: AssetImage('assets/p.jpg'),
                     ),
                   ),
                 ),

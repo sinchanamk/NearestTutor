@@ -17,102 +17,106 @@ class Login2Page extends StatefulWidget  {
 class _Login2PageState extends State<Login2Page>with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation myanimation;
-  
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
+  TextEditingController usercont = TextEditingController();
+  TextEditingController passwordcont = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
           backgroundColor: ColorsConsts.white,
           body: SingleChildScrollView(
-            child: Column(children: [
-              Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+            child: Form(key: _form,
+              child: Column(children: [
+                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.7,
+                    height: MediaQuery.of(context).size.height / 2.2,
+                    child: Image.asset(
+                      "assets/c.png",
+                      height: 200,
+                      width: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ]),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 2.7,
-                  height: MediaQuery.of(context).size.height / 2.2,
-                  child: Image.asset(
-                    "assets/c.png",
-                    height: 200,
-                    width: 50,
-                    fit: BoxFit.cover,
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25, right: 4),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.person_outline_rounded,
+                        color: ColorsConsts.black,
+                        size: 30,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 1.3,
+                        padding: EdgeInsets.only(right: 5, left: 20),
+                        child: TextFormField(
+                          controller: usercont,
+                            decoration: InputDecoration(
+                                hintText: 'Enter User Id',
+                                hintStyle: TextStyle(
+                                  color: ColorsConsts.grey,
+                                )),
+                                  validator: (value) {
+                            if (value!.isEmpty||value==null) {
+                              return 'Please enter your UserId';
+                            }
+                            return null;
+                          },
+                        
+                                ),
+                      ),
+                    ],
                   ),
                 ),
-              ]),
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 25, right: 4),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.person_outline_rounded,
-                      color: ColorsConsts.black,
-                      size: 30,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 1.3,
-                      padding: EdgeInsets.only(right: 5, left: 20),
-                      child: TextFormField(
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 25,
+                    right: 4,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.phone_android_outlined,
+                        color: ColorsConsts.black,
+                        size: 30,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 1.3,
+                        padding: EdgeInsets.only(right: 5, left: 20),
+                        child: TextFormField(
                           decoration: InputDecoration(
-                              hintText: 'Enter User Id',
+                              hintText: 'Password',
                               hintStyle: TextStyle(
                                 color: ColorsConsts.grey,
-                              ))),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 25,
-                  right: 4,
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.phone_android_outlined,
-                      color: ColorsConsts.black,
-                      size: 30,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 1.3,
-                      padding: EdgeInsets.only(right: 5, left: 20),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            hintText: 'Password',
-                            hintStyle: TextStyle(
-                              color: ColorsConsts.grey,
-                            )),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20, left: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      height: 27,
-                      width: 27,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: ColorsConsts.white,
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.asset(
-                          'assets/search.png',
-                          height: 30,
+                              )),
+                               onFieldSubmitted: (value) {},
+                        obscureText: true,
+                        validator: (value) {
+                          if (value==null||value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        },
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 40.0),
-                      child: Container(
-                        height: 30,
-                        width: 30,
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: 27,
+                        width: 27,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           color: ColorsConsts.white,
@@ -120,70 +124,95 @@ class _Login2PageState extends State<Login2Page>with SingleTickerProviderStateMi
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: Image.asset(
-                            'assets/facebook.png',
-                            fit: BoxFit.fill,
+                            'assets/search.png',
+                            height: 30,
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30, left: 6, right: 24),
-                child: Container(
-                  height: 40, width: 143,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(60),
-                      color: ColorsConsts.ccyan),
-                  //alignment: Alignment.center,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      primary: ColorsConsts.ccyan,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context, //ScalePageRoute(widget: BottomBarScreen()));
-                        MaterialPageRoute(
-                            builder: (context) => BottomBarScreen()),
-                      );
-                    },
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                          color: ColorsConsts.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Text('Don\'t have an account? '),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 128, top: 5),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TeacherSignUp()),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Text('Please '),
-                      Text(
-                        'SIGNUP',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 40.0),
+                        child: Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: ColorsConsts.white,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.asset(
+                              'assets/facebook.png',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
-              )
-            ]),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30, left: 6, right: 24),
+                  child: Container(
+                    height: 40, width: 143,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(60),
+                        color: ColorsConsts.ccyan),
+                    //alignment: Alignment.center,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        primary: ColorsConsts.ccyan,
+                      ),
+                      onPressed: () {
+                                setState(() {
+                                  if (_form.currentState!.validate()) {
+                                    print("successful");
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => BottomBarScreen()),
+                                    );
+                                  } else {
+                                    print("UnSuccessfull");
+                                  }
+                                });
+                              },
+                              child: Text(
+                        'Login',
+                        style: TextStyle(
+                            color: ColorsConsts.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text('Don\'t have an account? '),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 128, top: 5),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TeacherSignUp()),
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        Text('Please '),
+                        Text(
+                          'SIGNUP',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ]),
+            ),
           )),
     );
   }
