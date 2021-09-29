@@ -1,0 +1,4 @@
+#Fri Sep 24 18:28:37 IST 2021
+base.0=E\:\\Flutter_Basic_Programs\\BigWelt\\student\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
